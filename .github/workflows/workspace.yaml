@@ -1,4 +1,4 @@
-name: Terraform
+name: Development-wrokspace
 
 on:
   push:
