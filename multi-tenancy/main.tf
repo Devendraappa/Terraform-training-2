@@ -71,6 +71,7 @@ resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public.id
   route_table_id = aws_route_table.public.id
 }
+
 # Security Group
 resource "aws_security_group" "allow_ssh" {
   vpc_id = aws_vpc.main.id
@@ -91,6 +92,18 @@ resource "aws_security_group" "allow_ssh" {
 
   tags = {
     Name = "allow_ssh"
+  }
+}
+
+# EC2 Instance
+resource "aws_instance" "web" {
+  ami                    = "ami-0abcdef1234567890"  # Replace with a valid AMI ID
+  instance_type          = "t2.micro"
+  subnet_id              = aws_subnet.public.id
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+
+  tags = {
+    Name = "web-instance"
   }
 }
 # EC2 Instance
