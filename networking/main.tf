@@ -7,3 +7,14 @@ terraform {
     dynamodb_table = "test"
   }
 }
+
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_vpc" "networking" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "networking-vpc"
+  }
+}
