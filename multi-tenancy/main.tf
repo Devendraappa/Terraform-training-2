@@ -71,7 +71,28 @@ resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public.id
   route_table_id = aws_route_table.public.id
 }
+# Security Group
+resource "aws_security_group" "allow_ssh" {
+  vpc_id = aws_vpc.main.id
 
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_ssh"
+  }
+}
 # EC2 Instance
 resource "aws_instance" "web" {
   ami           = "ami-053b12d3152c0cc71"
