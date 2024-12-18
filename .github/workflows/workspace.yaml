@@ -46,11 +46,11 @@ jobs:
           fi
 
       - name: Terraform Init
-        working-directory: ./multi-tenancy
+        working-directory: ./workspace
         run: terraform init
 
       - name: Terraform Apply
-        working-directory: ./multi-tenancy
+        working-directory: ./workspace
         run: |
           terraform workspace new ${{ steps.workspace.outputs.workspace }} || terraform workspace select ${{ steps.workspace.outputs.workspace }}
           terraform apply -auto-approve
